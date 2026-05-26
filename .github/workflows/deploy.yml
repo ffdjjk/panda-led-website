@@ -1,31 +1,31 @@
-name: Build and Deploy Vue to Pages
+name: Build and Push Dist to Org Repo
 
 on:
   push:
     branches: ['main']
 
+# 提前开启全局 Node 24 容器支持，彻底消除插件警告
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write # 必须改为 write，允许 Actions 在本地读写代码产物
 
 concurrency:
   group: 'pages'
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v5 # 👈 修正：官方最新实际为 v5
+
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v5 # 👈 修正：官方最新实际为 v5
         with:
-          node-version: 24
+          node-version: 24 # 确保你本地用 Node 24 打包也能正常通过
           cache: 'npm'
 
       - name: Install dependencies
@@ -34,14 +34,12 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v6
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
+      # 核心步骤：把打包出来的 dist 文件夹推送到组织仓库
+      - name: Push to pandaled-biexi-com-ffdjjk/website
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: './dist'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+          token: ${{ secrets.ORG_DEPLOY_TOKEN }}
+          repository-name: pandaled-biexi-com-ffdjjk/website
+          branch: main
+          folder: dist
+          clean: true
