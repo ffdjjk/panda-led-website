@@ -21,12 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5 # 👈 升级到 v5
-
+        uses: actions/checkout@v6
       - name: Set up Node.js
-        uses: actions/setup-node@v5 # 👈 升级到 v5
+        uses: actions/setup-node@v6
         with:
-          node-version: 24 # 这里是你项目的 Node 版本，保持不变即可
+          node-version: 24
           cache: 'npm'
 
       - name: Install dependencies
@@ -36,13 +35,13 @@ jobs:
         run: npm run build
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5 # 👈 升级到 v5
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # 暂无新版可不改，或用下方环境变量解决
+        uses: actions/upload-pages-artifact@v5
         with:
           path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # 暂无新版可不改，或用下方环境变量解决
+        uses: actions/deploy-pages@v5
