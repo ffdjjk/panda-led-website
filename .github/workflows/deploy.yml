@@ -2,7 +2,7 @@ name: Build and Deploy Vue to Pages
 
 on:
   push:
-    branches: ['main'] # 如果你的主分支叫 master，请改为 "master"
+    branches: ['main']
 
 permissions:
   contents: read
@@ -21,33 +21,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5 # 👈 升级到 v5
 
-      # 1. 告诉 GitHub 服务器安装 Node.js 环境
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5 # 👈 升级到 v5
         with:
-          node-version: 20
+          node-version: 20 # 这里是你项目的 Node 版本，保持不变即可
           cache: 'npm'
 
-      # 2. 安装你 Vue 项目的依赖包
       - name: Install dependencies
         run: npm install
 
-      # 3. 运行打包命令，这一步才会真正生成 dist 文件夹！
       - name: Build project
         run: npm run build
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5 # 👈 升级到 v5
 
-      # 4. 这时候有 dist 文件夹了，上传它
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3 # 暂无新版可不改，或用下方环境变量解决
         with:
           path: './dist'
 
-      # 5. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # 暂无新版可不改，或用下方环境变量解决
