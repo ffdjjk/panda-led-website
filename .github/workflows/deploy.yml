@@ -42,3 +42,5 @@ jobs:
           folder: dist
           clean: true
           single-commit: true
+          git-config-name: ffdjjk
+          git-config-email: qzd1989@gmail.com
