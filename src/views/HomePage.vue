@@ -39,7 +39,7 @@ function goToPrivacy() {
 
     <div class="hero">
       <div class="logo-container">
-        <img src="/logo.png" alt="PandaLED Logo" class="logo" />
+        <img src="/logo.png" alt="PandaLED" class="logo" />
         <div class="logo-glow"></div>
       </div>
       <h1 class="title" :key="locale + '-title'">{{ content.welcome }}</h1>
