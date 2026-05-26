@@ -1,4 +1,4 @@
-name: Deploy Static Content to Pages
+name: Build and Deploy Vue to Pages
 
 on:
   push:
@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -23,14 +23,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 1. 告诉 GitHub 服务器安装 Node.js 环境
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 2. 安装你 Vue 项目的依赖包
+      - name: Install dependencies
+        run: npm install
+
+      # 3. 运行打包命令，这一步才会真正生成 dist 文件夹！
+      - name: Build project
+        run: npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      # 4. 这时候有 dist 文件夹了，上传它
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'dist'
+          path: './dist'
 
+      # 5. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
