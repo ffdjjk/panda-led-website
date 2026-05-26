@@ -32,14 +32,14 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Push to pandaled-biexi-com-ffdjjk/website
+      - name: Push to ffdjjk/panda-led-website-published
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # 如果要A仓库在workflow中操作B仓库,就得在B仓库所属的User里拿到token,放在A仓库的Repository secrets,这样A仓库才有权限操作B仓库.
           ## B: User-Settings-Developer Settings-Personal access tokens-Tokens(classic)-Generate new token(classic)-获取密码
           ## A: Repository-Settings-Secrets and variables-Actions-Repository secrets-添加为变量如ORG_DEPLOY_TOKEN
           token: ${{ secrets.ALL }}
-          repository-name: pandaled-biexi-com-ffdjjk/website
+          repository-name: ffdjjk/panda-led-website-published
           branch: main
           folder: dist
           clean: true
