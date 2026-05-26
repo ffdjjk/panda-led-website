@@ -34,7 +34,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      # 核心步骤：把打包出来的 dist 文件夹推送到组织仓库
       - name: Push to pandaled-biexi-com-ffdjjk/website
         uses: JamesIves/github-pages-deploy-action@v4
         with:
