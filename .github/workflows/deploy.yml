@@ -4,12 +4,8 @@ on:
   push:
     branches: ['main']
 
-# 提前开启全局 Node 24 容器支持，彻底消除插件警告
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 permissions:
-  contents: write # 必须改为 write，允许 Actions 在本地读写代码产物
+  contents: write
 
 concurrency:
   group: 'pages'
@@ -20,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v5 # 👈 修正：官方最新实际为 v5
+        uses: actions/setup-node@v6
         with:
-          node-version: 24 # 确保你本地用 Node 24 打包也能正常通过
+          node-version: 24
           cache: 'npm'
 
       - name: Install dependencies
@@ -37,6 +33,9 @@ jobs:
       - name: Push to pandaled-biexi-com-ffdjjk/website
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          # 如果要A仓库在workflow中操作B仓库,就得在B仓库所属的User里拿到token,放在A仓库的Repository secrets,这样A仓库才有权限操作B仓库.
+          ## B: User-Settings-Developer Settings-Personal access tokens-Tokens(classic)-Generate new token(classic)-获取密码
+          ## A: Repository-Settings-Secrets and variables-Actions-Repository secrets-添加为变量如ORG_DEPLOY_TOKEN
           token: ${{ secrets.ORG_DEPLOY_TOKEN }}
           repository-name: pandaled-biexi-com-ffdjjk/website
           branch: main
