@@ -43,3 +43,4 @@ jobs:
           branch: main
           folder: dist
           clean: true
+          single-commit: true
