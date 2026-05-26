@@ -8,8 +8,8 @@ const locale = ref<'zh' | 'en'>('en')
 const content = computed(() => {
   if (locale.value === 'zh') {
     return {
-      welcome: '欢迎使用 PandaLED!',
-      slogan: '把心亮出来，让世界看见',
+      welcome: '欢迎使用PandaLED！',
+      slogan: '把心亮出来，让世界看见！',
     }
   }
   return {
