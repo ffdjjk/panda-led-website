@@ -10,7 +10,6 @@ useSeoMeta(locale, () => localeStore.seo)
 </script>
 
 <template>
-  <!-- router -->
   <router-view />
 </template>
 
