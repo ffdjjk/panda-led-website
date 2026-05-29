@@ -1,4 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useLocaleStore } from '@/stores/locale'
+import { useSeoMeta } from '@/composables/useSeoMeta'
+
+const localeStore = useLocaleStore()
+const { locale } = storeToRefs(localeStore)
+
+useSeoMeta(locale, () => localeStore.seo)
+</script>
 
 <template>
   <router-view />
@@ -19,4 +28,3 @@ body {
   overflow-x: hidden;
 }
 </style>
-

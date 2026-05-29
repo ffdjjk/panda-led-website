@@ -1,33 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useLocaleStore } from '@/stores/locale'
 
 const router = useRouter()
-const locale = ref<'zh' | 'en'>('en')
-
-const content = computed(() => {
-  if (locale.value === 'zh') {
-    return {
-      welcome: '欢迎使用PandaLED！',
-      slogan: '把心亮出来，让世界看见！',
-      androidBadgeLabel: '即将在',
-      androidDescription: 'Android 版本正在审核中，敬请期待！',
-    }
-  }
-  return {
-      welcome: 'Welcome to PandaLED!',
-      slogan: 'Shine bright, stand out.',
-      androidBadgeLabel: 'Get it on',
-      androidDescription: 'Android app is under review. Stay tuned!',
-    }
-})
-
-function toggleLocale() {
-  locale.value = locale.value === 'zh' ? 'en' : 'zh'
-}
+const localeStore = useLocaleStore()
 
 function goToPrivacy() {
-  router.push(`/privacy-policy/${locale.value}`)
+  router.push(`/privacy-policy/${localeStore.locale}`)
 }
 </script>
 
@@ -45,12 +24,12 @@ function goToPrivacy() {
       </svg>
     </a>
 
-    <button class="lang-switcher" @click="toggleLocale">
-      {{ locale === 'zh' ? 'EN' : '中文' }}
+    <button class="lang-switcher" @click="localeStore.toggleLocale()">
+      {{ localeStore.locale === 'zh' ? 'EN' : '中文' }}
     </button>
 
     <button class="privacy-btn" @click="goToPrivacy">
-      {{ locale === 'zh' ? '隐私政策' : 'Privacy Policy' }}
+      {{ localeStore.locale === 'zh' ? '隐私政策' : 'Privacy Policy' }}
     </button>
 
     <div class="hero">
@@ -65,14 +44,14 @@ function goToPrivacy() {
         ></video>
         <div class="logo-glow"></div>
       </div>
-      <h1 class="title" :key="locale + '-title'">{{ content.welcome }}</h1>
-      <p class="slogan" :key="locale + '-slogan'">{{ content.slogan }}</p>
+      <h1 class="title" :key="localeStore.locale + '-title'">{{ localeStore.content.welcome }}</h1>
+      <p class="slogan" :key="localeStore.locale + '-slogan'">{{ localeStore.content.slogan }}</p>
 
       <div class="android-section">
       <a
         href="#"
         class="google-play-badge"
-        :title="content.androidDescription"
+        :title="localeStore.content.androidDescription"
         @click.prevent
       >
         <div class="badge-inner">
@@ -82,12 +61,12 @@ function goToPrivacy() {
             </svg>
           </div>
           <div class="badge-text">
-            <span class="badge-label">{{ content.androidBadgeLabel }}</span>
+            <span class="badge-label">{{ localeStore.content.androidBadgeLabel }}</span>
             <span class="badge-store">Google Play</span>
           </div>
         </div>
       </a>
-      <p class="android-description">{{ content.androidDescription }}</p>
+      <p class="android-description">{{ localeStore.content.androidDescription }}</p>
       </div>
     </div>
   </div>
