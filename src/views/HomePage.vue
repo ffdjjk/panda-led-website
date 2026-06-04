@@ -34,14 +34,11 @@ function goToPrivacy() {
 
     <div class="hero">
       <div class="logo-container">
-        <video
-          src="/logo.mp4"
-          autoplay
-          muted
-          loop
-          playsinline
+        <img
+          src="/logo.webp"
           class="logo"
-        ></video>
+          alt="PandaLED"
+        >
         <div class="logo-glow"></div>
       </div>
       <h1 class="title" :key="localeStore.locale + '-title'">{{ localeStore.content.welcome }}</h1>
@@ -49,24 +46,24 @@ function goToPrivacy() {
 
       <div class="android-section">
       <a
-        href="#"
+        href="https://play.google.com/store/apps/details?id=com.biexi.pandaled"
+        target="_blank"
+        rel="noopener noreferrer"
         class="google-play-badge"
-        :title="localeStore.content.androidDescription"
-        @click.prevent
       >
         <div class="badge-inner">
           <div class="badge-icon">
             <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z" fill="currentColor"/>
+              <path d="M47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z" fill="#4285F4"/>
+              <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z" fill="#EA4335"/>
+              <path d="M425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8z" fill="#FBBC04"/>
+              <path d="M104.6 499l280.8-161.2-60.1-60.1L104.6 499z" fill="#34A853"/>
             </svg>
           </div>
-          <div class="badge-text">
-            <span class="badge-label">{{ localeStore.content.androidBadgeLabel }}</span>
-            <span class="badge-store">Google Play</span>
-          </div>
+          <span class="badge-store">{{ localeStore.content.storeName }}</span>
         </div>
       </a>
-      <p class="android-description">{{ localeStore.content.androidDescription }}</p>
+
       </div>
     </div>
   </div>
@@ -314,7 +311,7 @@ function goToPrivacy() {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  cursor: default;
+  cursor: pointer;
   transition: transform 0.3s ease;
 }
 
@@ -356,34 +353,11 @@ function goToPrivacy() {
   height: 100%;
 }
 
-.badge-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1.15;
-}
-
-.badge-label {
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 400;
-}
-
 .badge-store {
   font-size: 1.05rem;
   font-weight: 600;
   color: #ffffff;
   letter-spacing: 0.5px;
-}
-
-.android-description {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.45);
-  margin: 0;
-  letter-spacing: 1px;
-  font-weight: 300;
 }
 
 @media (max-width: 600px) {
@@ -454,16 +428,9 @@ function goToPrivacy() {
     height: 22px;
   }
 
-  .badge-label {
-    font-size: 0.55rem;
-  }
-
   .badge-store {
     font-size: 0.9rem;
   }
 
-  .android-description {
-    font-size: 0.7rem;
-  }
 }
 </style>

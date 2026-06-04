@@ -9,15 +9,13 @@ export const useLocaleStore = defineStore('locale', () => {
       return {
         welcome: '欢迎使用PandaLED！',
         slogan: '把心亮出来，让世界看见！',
-        androidBadgeLabel: '即将在',
-        androidDescription: 'Android 版本正在审核中，敬请期待！',
+        storeName: '谷歌应用商店',
       }
     }
     return {
       welcome: 'Welcome to PandaLED!',
       slogan: 'Shine bright, stand out.',
-      androidBadgeLabel: 'Get it on',
-      androidDescription: 'Android app is under review. Stay tuned!',
+      storeName: 'Google Play',
     }
   })
 
